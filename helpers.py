@@ -1,3 +1,9 @@
+# Hash function to convert Letters to Numbers (Only one letter)
+def letter_to_number(letter):
+    if len(letter) == 1:
+        return ord(letter.lower()) - 97 
+
+
 # Function to search a given code in excel file
 def search_item(data, column, code):
     for i in range(len(data)):
