@@ -1,0 +1,5 @@
+import os
+
+dir_path = os.getcwd()
+
+print(os.path.join(dir_path,"FerreteriaNorte", "assets", "frame0"))

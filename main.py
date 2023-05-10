@@ -3,8 +3,8 @@ from helpers import filter_products_csv, letter_to_number
 
 data_empresa = pd.read_excel("FerreteriaNorte\precios_nuevos.xlsx")
 data_ferreteria = pd.read_excel("FerreteriaNorte\Fer_actualizar.xlsx")
-codigos = pd.read_excel("FerreteriaNorte\codigos.xlsx")
-numeros = pd.read_excel("FerreteriaNorte\mumeros.xlsx")
+#codigos = pd.read_excel("FerreteriaNorte\codigos.xlsx")
+#numeros = pd.read_excel("FerreteriaNorte\mumeros.xlsx")
 
 #data_empresa.to_csv("FerreteriaNorte\datos_empresa.csv")
 #data_ferreteria.to_csv("FerreteriaNorte\datos_ferretería.csv")
