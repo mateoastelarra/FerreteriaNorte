@@ -8,7 +8,7 @@ import os
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, filedialog
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, filedialog, messagebox
 
 dir_path = os.getcwd()
 OUTPUT_PATH = Path(__file__).parent
@@ -29,11 +29,19 @@ window.title("Actualización de Precios")
 def select_file_proveedor():
     # Abre el cuadro de diálogo para seleccionar un archivo
     file_path = filedialog.askopenfilename(filetypes=[("Archivos Excel", "*.xlsx")])
+    
+    # Mostrar mensaje de confirmación con icono
+    messagebox.showinfo("Archivo cargado", "El archivo se ha cargado con éxito.")
+
     # Muestra la ruta del archivo seleccionado en la consola
     print("Archivo seleccionado:", file_path)
 def select_file_ferr():
     # Abre el cuadro de diálogo para seleccionar un archivo
     file_path = filedialog.askopenfilename(filetypes=[("Archivos Excel", "*.xlsx")])
+
+    # Mostrar mensaje de confirmación con icono
+    messagebox.showinfo("Archivo cargado", "El archivo se ha cargado con éxito.")
+
     # Muestra la ruta del archivo seleccionado en la consola
     print("Archivo seleccionado:", file_path)
 #función para obtener las columnas de las distintas planillas, quizás tengan que ser 4 funciones distintas.
