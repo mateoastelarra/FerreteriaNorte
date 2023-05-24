@@ -5,6 +5,7 @@
 
 from pathlib import Path
 import os
+from helpers import update_prices
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
@@ -27,30 +28,33 @@ window.title("Actualización de Precios")
 
 #función para solicitar apertura de archivo
 def select_file_proveedor():
+    global file_path_proveedor
     # Abre el cuadro de diálogo para seleccionar un archivo
-    file_path = filedialog.askopenfilename(filetypes=[("Archivos Excel", "*.xlsx")])
+    file_path_proveedor = filedialog.askopenfilename(filetypes=[("Archivos Excel", "*.xlsx")])
     
     # Mostrar mensaje de confirmación con icono
     messagebox.showinfo("Archivo cargado", "El archivo se ha cargado con éxito.")
 
     # Muestra la ruta del archivo seleccionado en la consola
-    print("Archivo seleccionado:", file_path)
+    print("Archivo seleccionado:", file_path_proveedor)
 def select_file_ferr():
+    global file_path_ferrreteria
     # Abre el cuadro de diálogo para seleccionar un archivo
-    file_path = filedialog.askopenfilename(filetypes=[("Archivos Excel", "*.xlsx")])
+    file_path_ferrreteria = filedialog.askopenfilename(filetypes=[("Archivos Excel", "*.xlsx")])
 
     # Mostrar mensaje de confirmación con icono
     messagebox.showinfo("Archivo cargado", "El archivo se ha cargado con éxito.")
 
     # Muestra la ruta del archivo seleccionado en la consola
-    print("Archivo seleccionado:", file_path)
+    print("Archivo seleccionado:", file_path_ferrreteria)
 #función para obtener las columnas de las distintas planillas, quizás tengan que ser 4 funciones distintas.
 def get_values():
-    column_code_prov=entry_1.get(),
-    column_price_prov=entry_2.get(),
-    column_code_ferr=entry_3.get(),
-    column_price_ferr=entry_4.get(),
-    print(column_code_prov, column_price_prov, column_code_ferr,column_price_ferr)
+    column_code_prov=entry_1.get()
+    column_price_prov=entry_2.get()
+    column_code_local=entry_3.get()
+    column_price_local=entry_4.get()
+    update_prices(file_path_proveedor, file_path_ferrreteria, column_code_prov, column_price_prov, column_code_local, column_price_local)
+    print("listo")
     
 canvas = Canvas(
     window,

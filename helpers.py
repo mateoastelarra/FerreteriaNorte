@@ -1,7 +1,73 @@
+import pandas as pd
+import openpyxl as op
+
 # Hash function to convert Letters to Numbers (Only one letter)
 def letter_to_number(letter):
     if len(letter) == 1:
         return ord(letter.lower()) - 97 
+
+
+# One long function to rule them all (and update prices from excel A to B using given codes)
+def update_prices(path_proveedor, 
+                  path_local, 
+                  ubicacion_codigo_proveedor,
+                  ubicacion_precio_proveedor, 
+                  ubicacion_codigo_local, 
+                  ubicacion_precio_local):
+
+    data_empresa = pd.read_excel(path_proveedor)
+    data_ferreteria = pd.read_excel(path_local)
+
+    columnas = list(data_ferreteria.columns.values)
+
+    # Sacar nombre de categoría en columna 1
+    data_ferreteria.columns.values[1]
+
+    # Pido las Celdas de la info que necesito
+    valor_codigo_empresa = ubicacion_codigo_proveedor
+    valor_precio_empresa = ubicacion_precio_proveedor
+    valor_codigo_ferreteria = ubicacion_codigo_local
+    valor_precio_ferreteria = ubicacion_precio_local
+
+    # Me quedo con las columnas que me interesan del excel de la empresa
+    data_empresa_importante = data_empresa[[data_empresa.columns.values[letter_to_number(valor_codigo_empresa)], data_empresa.columns.values[letter_to_number(valor_precio_empresa)]]]
+    data_ferreteria_importante = data_ferreteria[ data_ferreteria.columns.values[letter_to_number(valor_codigo_ferreteria)]]
+
+
+    merge = pd.merge(data_ferreteria_importante, 
+                    data_empresa_importante, 
+                    left_on = data_ferreteria.columns.values[letter_to_number(valor_codigo_ferreteria)],
+                    right_on = data_empresa.columns.values[letter_to_number(valor_codigo_empresa)])
+
+
+    merge.to_excel("FerreteriaNorte\prueba.xlsx")
+    resultados = pd.read_excel("FerreteriaNorte\prueba.xlsx")
+
+    # Crear un diccionario que contenga el codigo como key y el precio actualizado como valor
+    dic_resultados = dict()
+    print(resultados)
+    for i in range(len(resultados)):
+        dic_resultados[resultados.iloc[i,1]] = resultados.iloc[i,3]
+
+    # Cambiar los datos en df de la ferretería
+    #data_ferreteria[data_ferreteria.columns.values[letter_to_number(valor_precio_ferreteria)]] = data_ferreteria[data_ferreteria.columns.values[letter_to_number(valor_codigo_ferreteria)]].map(dic_resultados)
+
+    #data_ferreteria.to_excel("FerreteriaNorte\precios_finales.xlsx")
+
+    
+    # Write new data into existing file
+    wb = op.load_workbook(path_local)
+    ws = wb.active
+    total_rows = ws.max_row
+
+    for key in dic_resultados.keys():
+        for j in range(1, total_rows):
+            celda_codigo = valor_codigo_ferreteria.upper() + str(j)
+            if ws[celda_codigo].value == key:
+                celda_precio = valor_precio_ferreteria.upper() + str(j)
+                ws[celda_precio].value = dic_resultados[key]
+
+    wb.save(path_local)
 
 
 # Function to search a given code in excel file
