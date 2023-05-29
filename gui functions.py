@@ -49,12 +49,16 @@ def select_file_ferr():
     print("Archivo seleccionado:", file_path_ferrreteria)
 #función para obtener las columnas de las distintas planillas, quizás tengan que ser 4 funciones distintas.
 def get_values():
-    column_code_prov=entry_1.get()
-    column_price_prov=entry_2.get()
-    column_code_local=entry_3.get()
-    column_price_local=entry_4.get()
-    update_prices(file_path_proveedor, file_path_ferrreteria, column_code_prov, column_price_prov, column_code_local, column_price_local)
-    print("listo")
+    try:
+        column_code_prov=entry_1.get()
+        column_price_prov=entry_2.get()
+        column_code_local=entry_3.get()
+        column_price_local=entry_4.get()
+        update_prices(file_path_proveedor, file_path_ferrreteria, column_code_prov, column_price_prov, column_code_local, column_price_local)
+        print("listo")
+        messagebox.showinfo("Planilla Actualizada", "La planilla se actualizó con éxito.")
+    except:
+        messagebox.showinfo("Error", "Ups! Parece que hubo un error, por favor revisá los campos ingresados y volvé a probar.")
     
 canvas = Canvas(
     window,
