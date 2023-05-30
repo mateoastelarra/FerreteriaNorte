@@ -5,16 +5,20 @@
 
 from pathlib import Path
 import os
-from helpers import update_prices
+from helpers import update_prices, resource_path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, filedialog, messagebox
 
-dir_path = os.getcwd()
-OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / os.path.join(dir_path,"FerreteriaNorte", "assets", "frame0")
 
+#dir_path = os.getcwd()
+#OUTPUT_PATH = Path(__file__).parent
+#ASSETS_PATH = OUTPUT_PATH / os.path.join(dir_path,"FerreteriaNorte", "assets", "frame0")
+
+ASSETS_PATH = resource_path("assets/frame0")
+
+print(ASSETS_PATH)
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -33,20 +37,30 @@ def select_file_proveedor():
     file_path_proveedor = filedialog.askopenfilename(filetypes=[("Archivos Excel", "*.xlsx")])
     
     # Mostrar mensaje de confirmación con icono
-    messagebox.showinfo("Archivo cargado", "El archivo se ha cargado con éxito.")
+    if file_path_proveedor != "":
+        messagebox.showinfo("Archivo cargado", "El archivo " + file_path_proveedor.split("/")[-1] + " fue cargado con éxito.")
+    else:
+        messagebox.showinfo("El Archivo no fue cargado", "Ups, por favor elija un archivo válido.")
 
     # Muestra la ruta del archivo seleccionado en la consola
     print("Archivo seleccionado:", file_path_proveedor)
+
+
 def select_file_ferr():
     global file_path_ferrreteria
     # Abre el cuadro de diálogo para seleccionar un archivo
     file_path_ferrreteria = filedialog.askopenfilename(filetypes=[("Archivos Excel", "*.xlsx")])
 
     # Mostrar mensaje de confirmación con icono
-    messagebox.showinfo("Archivo cargado", "El archivo se ha cargado con éxito.")
-
+    if file_path_ferrreteria != "":
+        messagebox.showinfo("Archivo cargado", "El archivo " + file_path_ferrreteria.split("/")[-1] + " fue cargado con éxito.")
+    else:
+        messagebox.showinfo("El Archivo no fue cargado", "Ups, por favor elija un archivo válido.")
+    
     # Muestra la ruta del archivo seleccionado en la consola
     print("Archivo seleccionado:", file_path_ferrreteria)
+
+
 #función para obtener las columnas de las distintas planillas, quizás tengan que ser 4 funciones distintas.
 def get_values():
     try:

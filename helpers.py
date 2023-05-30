@@ -1,10 +1,18 @@
 import pandas as pd
 import openpyxl as op
+import sys
+import os
 
 # Hash function to convert Letters to Numbers (Only one letter)
 def letter_to_number(letter):
     if len(letter) == 1:
         return ord(letter.lower()) - 97 
+
+
+# Function to help with paths
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
 
 
 # One long function to rule them all (and update prices from excel A to B using given codes)
@@ -40,8 +48,8 @@ def update_prices(path_proveedor,
                     right_on = data_empresa.columns.values[letter_to_number(valor_codigo_empresa)])
 
 
-    merge.to_excel("FerreteriaNorte\prueba.xlsx")
-    resultados = pd.read_excel("FerreteriaNorte\prueba.xlsx")
+    merge.to_excel(resource_path("prueba.xlsx"))
+    resultados = pd.read_excel(resource_path("prueba.xlsx"))
 
     # Crear un diccionario que contenga el codigo como key y el precio actualizado como valor
     dic_resultados = dict()
